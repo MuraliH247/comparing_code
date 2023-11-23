@@ -31,11 +31,13 @@ class individuallistadmin extends CI_Controller
         $data['id']=$session_data['userLoginId'];
         if($data['id']){
         $data['newlistings']=$this->individuallistadminmodule->getnewrequests();
+		// print_r($data['newlistings']);exit();
         $i = 0;
         foreach($data['newlistings'] as $val){
             $name="usernames";
             $usernames = $this->individuallistadminmodule->getusername($val->userIDFK);
             $data['newlistings'][$i]->$name = $usernames;
+			// print_r($usernames);exit();
             $i++;
         }
         $this->load->view('header');
@@ -227,16 +229,6 @@ class individuallistadmin extends CI_Controller
 
 
 
-
-
-
-
-
-
-
-		
-
-
 		$filename=$_FILES['masterfile']['name'];
 		// print_r($filename);exit();
 		foreach($filename as $key => $filenameval2)
@@ -339,7 +331,7 @@ class individuallistadmin extends CI_Controller
 		require_once 'Swift-5.0.1/lib/swift_required.php';
 		$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 		->setUsername('indiaestatehomes@gmail.com')
-		->setPassword('homesindiaestate');     
+		->setPassword('ffpc xuul oyxb nint');     
                     // Mail Sending Body for Admin
                     $body="<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
                     "."<p style='margin-bottom:0px; margin-top:0px;'>Please do note that the property listing by <strong>". $customername ."</strong> on ". $postdate ." has been approved by <strong>". $username ."</strong> and is live.</p><br />
@@ -394,6 +386,8 @@ class individuallistadmin extends CI_Controller
 		$id = $this->input->post('id');
 		$reason = $this->input->post('reason');
 		$price = $this->input->post('price');
+		// print_r($id);
+		// print_r($price);
 		// print_r($reason);exit();
 		$data['Rejectedreasonsuccess'] = $this->individuallistadminmodule->rejectionreason($id,$reason);
 		$data['Rejectedsuccess'] = $this->individuallistadminmodule->rejection($id);
@@ -408,7 +402,7 @@ class individuallistadmin extends CI_Controller
 		require_once 'Swift-5.0.1/lib/swift_required.php';
 		$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 		->setUsername('indiaestatehomes@gmail.com')
-		->setPassword('homesindiaestate');     
+		->setPassword('ffpc xuul oyxb nint');     
                     // Mail Sending Body for Admin
                     $body="<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
                     "."<p style='margin-bottom:0px; margin-top:0px;'>Please do note that the property listing by <strong>". $customername ."</strong> on ". $postdate ." has been Rejected by <strong>". $username ."</strong> due to <strong>". $reason ."</strong>.Do check it out.</p><br />
