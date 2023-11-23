@@ -1001,7 +1001,7 @@ class individuallistbackend extends CI_Controller
 		require_once 'Swift-5.0.1/lib/swift_required.php';
 		$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 		->setUsername('indiaestatehomes@gmail.com')
-		->setPassword('homesindiaestate');
+		->setPassword('ffpc xuul oyxb nint');
 
 			// Mail Sending Body for Admin
 			$body="<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
@@ -1497,7 +1497,7 @@ class individuallistbackend extends CI_Controller
 					require_once 'Swift-5.0.1/lib/swift_required.php';
 						$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 						->setUsername('indiaestatehomes@gmail.com')
-						->setPassword('homesindiaestate');
+						->setPassword('ffpc xuul oyxb nint');
 						$body="<p style='font-size:18px; margin-bottom:0px;'>Hello ". $usermailexist[0]->name .",</p>"."<br />
 						<p style='font-size:18px; margin-bottom:0px;'>Greetings from Homes247.in</p>"."<br />
 						"."<p style='margin-bottom:0px; margin-top:0px;'>Congratulations!!!  You Got a Listing callback request from ". $name ."</p><br />"."
@@ -1521,7 +1521,7 @@ class individuallistbackend extends CI_Controller
 						require_once 'Swift-5.0.1/lib/swift_required.php';
 						$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 						->setUsername('indiaestatehomes@gmail.com')
-						->setPassword('homesindiaestate');
+						->setPassword('ffpc xuul oyxb nint');
 						$body="<img src='https://duzxxeqden9a0.cloudfront.net/images/Logo.png' width='50%' style='margin-bottom:20px'>
 						"."<br />"."<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
 						"."<p style='margin-top:0px;'>We have received a request for Individual call back from ". $name ."</p><br />
