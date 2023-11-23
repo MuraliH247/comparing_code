@@ -156,64 +156,66 @@ public function updateRentallist()
 		// $rentalID=$this->input->post('rentalID');
 	    $filename=$_FILES['file']['name'];
 		// print_r($filename);exit();
-			foreach($filename as $key => $filenameval)
-			{
-                // print_r($filenameval);exit();
-				$file_name =time()."-".$_FILES['file']['name'][$key];
-				$file_size =$_FILES['file']['size'][$key];
-				$file_tmp =$_FILES['file']['tmp_name'][$key];
-            
-				$file_type=$_FILES['file']['type'][$key];
-				$target_dir = "images/rentals/gallery/";
-				// list($width, $height, $type, $attr) = getimagesize($file_tmp);
-				if(!empty($filenameval) && $width >= "820" && $height >= "430")
-				{	// $galleryimage=$this->rentaladminmodule->getrentalimages($rentalid);
-					// $galleryImg = $galleryimage[0]->name;
-					// echo"hi-$file_tmp";exit();
-					$filenameval=time()."-".$filenameval;	
-					$result = $this->rentaladminmodule->insertlistinggalleryImgs($filenameval,$rentalid);
-					if(is_dir("$target_dir/".$file_name)==false)
-					{
-					// move_uploaded_file($file_tmp,$target_dir.$file_name);
-					file_put_contents($target_dir.$file_name, file_get_contents($file_tmp));
-					}
+		foreach($filename as $key => $filenameval)
+		{
+			// print_r($filenameval);exit();
+			$file_name =time()."-".$_FILES['file']['name'][$key];
+			$file_size =$_FILES['file']['size'][$key];
+			$file_tmp =$_FILES['file']['tmp_name'][$key];
+		
+			$file_type=$_FILES['file']['type'][$key];
+			$target_dir = "images/rentals/gallery/";
+			// list($width, $height, $type, $attr) = getimagesize($file_tmp);
+			if(!empty($filenameval))
+			{	// $galleryimage=$this->rentaladminmodule->getrentalimages($rentalid);
+				// $galleryImg = $galleryimage[0]->name;
+				// echo"hi-$file_tmp";exit();
+				$filenameval=time()."-".$filenameval;	
+				$result = $this->rentaladminmodule->insertlistinggalleryImgs($filenameval,$rentalid);
+
+				// print_r($result);exit();
+				if(is_dir("$target_dir/".$file_name)==false)
+				{
+				// move_uploaded_file($file_tmp,$target_dir.$file_name);
+				file_put_contents($target_dir.$file_name, file_get_contents($file_tmp));
 				}
 			}
+		}
 
 // =============================== Cover image Upadte starts here ============================
 
-   $filename=$_FILES['coverfile']['name'];
-    // print_r($filename);exit();
-	foreach($filename as $key => $filenameval2)
-	{
-	$file_name1 =time()."-".$_FILES['coverfile']['name'][$key];
-
-	$file_size =$_FILES['coverfile']['size'][$key];
-	$file_tmp =$_FILES['coverfile']['tmp_name'][$key];
-	$file_type=$_FILES['coverfile']['type'][$key];
-	$target_dir = "images/rentals/cover/";
-	// list($width, $height, $type, $attr) = getimagesize($file_tmp);
-	if(!empty($filenameval2))
-	{
-		// print_r($filenameval2);exit();
-		$coverimage=$this->rentaladminmodule->getrentalcoverimage($rentalid);
-		$imagename = $coverimage[0]->imagename;
-		// print_r($imagename);exit();
-		// // if(file_exists("images/rentals/cover/".$imagename))
-		// // {
-		// // print_r($imagename);exit();
-		// // }
-		$filenameval2=time()."-".$filenameval2;	
-		$titileID=$key+1;
-		$result = $this->rentaladminmodule->insertcover_image($filenameval2,$rentalid);
-		// print_r($result);exit();
-		if(is_dir("$target_dir/".$file_name1)==false)
+		$filename=$_FILES['coverfile']['name'];
+		print_r($filename);exit();
+		foreach($filename as $key => $filenameval2)
 		{
-		// move_uploaded_file($file_tmp,$target_dir.$file_name1);
-		file_put_contents($target_dir.$file_name1, file_get_contents($file_tmp));
+			$file_name1 =time()."-".$_FILES['coverfile']['name'][$key];
+
+			$file_size =$_FILES['coverfile']['size'][$key];
+			$file_tmp =$_FILES['coverfile']['tmp_name'][$key];
+			$file_type=$_FILES['coverfile']['type'][$key];
+			$target_dir = "images/rentals/cover/";
+			// list($width, $height, $type, $attr) = getimagesize($file_tmp);
+			if(!empty($filenameval2))
+			{
+				// print_r($filenameval2);exit();
+				$coverimage=$this->rentaladminmodule->getrentalcoverimage($rentalid);
+				$imagename = $coverimage[0]->imagename;
+				// print_r($imagename);exit();
+				// // if(file_exists("images/rentals/cover/".$imagename))
+				// // {
+				// // print_r($imagename);exit();
+				// // }
+				$filenameval2=time()."-".$filenameval2;	
+				$titileID=$key+1;
+				$result = $this->rentaladminmodule->insertcover_image($filenameval2,$rentalid);
+				// print_r($result);exit();
+				if(is_dir("$target_dir/".$file_name1)==false)
+				{
+				// move_uploaded_file($file_tmp,$target_dir.$file_name1);
+				file_put_contents($target_dir.$file_name1, file_get_contents($file_tmp));
+				}
+			}
 		}
-	}
-}
 
 
 
@@ -301,12 +303,12 @@ public function updateRentallist()
 		$customername = $data['Approvedsuccess'][1]->user_name;
 		$city = $data['Approvedsuccess'][2]->city;
 		$locality = $data['Approvedsuccess'][3]->locality;
-		// print_r($data['Approvedsuccess']);exit();
+		print_r($data['Approvedsuccess']);exit();
 
 		require_once 'Swift-5.0.1/lib/swift_required.php';
 		$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 		->setUsername('indiaestatehomes@gmail.com')
-		->setPassword('homesindiaestate');     
+		->setPassword('ffpc xuul oyxb nint');     
                     // Mail Sending Body for Admin
                     $body="<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
                     "."<p style='margin-bottom:0px; margin-top:0px;'>Please do note that the property listing by <strong>". $customername ."</strong> on ". $postdate ." has been approved by <strong>". $username ."</strong> and is live.</p><br />
@@ -349,7 +351,7 @@ public function updateRentallist()
                     // $message ->setCc(array('abijith@homes247.in'));
                     $message ->setBcc(array('priyatham@homes247.in','abijith@homes247.in' ));
 					// $message ->setBcc(array('abijith@homes247.in'));
-					$message ->setBcc(array('ashwini@homes247.in'));
+					// $message ->setBcc(array('ashwini@homes247.in'));
                     $message ->setSubject("Rental Listing Approved");
                     $message ->setBody($body, 'text/html');
 					$result = $mailer->send($message);
@@ -450,56 +452,56 @@ public function updateRentallist()
 		$city = $data['Rejectedsuccess'][2]->city;
 		$locality = $data['Rejectedsuccess'][3]->locality;
 
-		require_once 'Swift-5.0.1/lib/swift_required.php';
-		$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
-		->setUsername('indiaestatehomes@gmail.com')
-		->setPassword('homesindiaestate');     
-                    // Mail Sending Body for Admin
-                    $body="<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
-                    "."<p style='margin-bottom:0px; margin-top:0px;'>Please do note that the property listing by <strong>". $customername ."</strong> on ". $postdate ." has been Rejected by <strong>". $postdate ."</strong> due to <strong>". $reason ."</strong>.Do check it out.</p><br />
-					"."<p style='margin:0px;'>Basic Details are as below.</p><br />
-					"."<strong>Property Details</strong> : ". $bhk ."". ' ' ."". $Proptype ." in ". $propname ." , ". $locality ." , ". $city ." <br />
-					"."<strong>Price</strong> : ". $price ."<br />
-					"."<p style='margin-bottom:15px;margin-top: 10px;'>Thanks and Regards,</p>
-					"."<p style='margin-bottom:0px;margin-top: 0px;'><strong>Admin</strong></p>
-					";
-                    $mailer     = Swift_Mailer::newInstance($trnsport);
-                    $message    = Swift_Message::newInstance('Rental Listing Rejected');
-                    $message ->setFrom(array('indiaestatehomes@gmail.com' => 'Greetings From Homes247.in'));
-                    // $message ->setTo(array('abijith@homes247.in'));
-                    $message ->setTo(array('enquiry@homes247.in'));
-                    // $message ->setCc(array('ashwinish007@gmail.com'));
-					$message ->setBcc(array('priyatham@homes247.in' , 'abijith@homes247.in'));
-					// $message ->setBcc(array('abijith@homes247.in'));
-                    $message ->setSubject("Rental Listing Rejected");
-                    $message ->setBody($body, 'text/html');
-					$result = $mailer->send($message);
+		// require_once 'Swift-5.0.1/lib/swift_required.php';
+		// $trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
+		// ->setUsername('indiaestatehomes@gmail.com')
+		// ->setPassword('ffpc xuul oyxb nint');     
+        //             // Mail Sending Body for Admin
+        //             $body="<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
+        //             "."<p style='margin-bottom:0px; margin-top:0px;'>Please do note that the property listing by <strong>". $customername ."</strong> on ". $postdate ." has been Rejected by <strong>". $postdate ."</strong> due to <strong>". $reason ."</strong>.Do check it out.</p><br />
+		// 			"."<p style='margin:0px;'>Basic Details are as below.</p><br />
+		// 			"."<strong>Property Details</strong> : ". $bhk ."". ' ' ."". $Proptype ." in ". $propname ." , ". $locality ." , ". $city ." <br />
+		// 			"."<strong>Price</strong> : ". $price ."<br />
+		// 			"."<p style='margin-bottom:15px;margin-top: 10px;'>Thanks and Regards,</p>
+		// 			"."<p style='margin-bottom:0px;margin-top: 0px;'><strong>Admin</strong></p>
+		// 			";
+        //             $mailer     = Swift_Mailer::newInstance($trnsport);
+        //             $message    = Swift_Message::newInstance('Rental Listing Rejected');
+        //             $message ->setFrom(array('indiaestatehomes@gmail.com' => 'Greetings From Homes247.in'));
+        //             // $message ->setTo(array('abijith@homes247.in'));
+        //             $message ->setTo(array('enquiry@homes247.in'));
+        //             // $message ->setCc(array('ashwinish007@gmail.com'));
+		// 			$message ->setBcc(array('priyatham@homes247.in' , 'abijith@homes247.in'));
+		// 			// $message ->setBcc(array('abijith@homes247.in'));
+        //             $message ->setSubject("Rental Listing Rejected");
+        //             $message ->setBody($body, 'text/html');
+		// 			$result = $mailer->send($message);
 
-					if($data['Rejectedsuccess'][1]->user_email != ''){
-						// Mail Sending Body for Customers
-					$body="<p style='font-size:18px; margin-bottom:0px;'>Hi ". $customername .",</p>"."<br />
-					<p style='font-size:18px; margin-bottom:0px;'>Greetings from Homes247.in</p>"."<br />
-                    "."<p style='margin-bottom:0px; margin-top:0px;'>We are sorry to say that your property verification has failed due to ". $reason ." Please do cross-check the details and our guidelines before resubmission.</p><br />
-					"."<p style='margin:0px;'>Basic Details you given.</p><br />
-					"."<strong>Property Details</strong> : ". $bhk ."". ' ' ."". $Proptype ." in ". $propname ." , ". $locality ." , ". $city ." <br />
-					"."<strong>Price</strong> : ". $price ."<br />
-					"."<p style='margin-bottom:15px;margin-top: 10px;'>Thanks and Regards,</p>
-					"."<p style='margin-bottom:0px;margin-top: 0px;'><strong>Admin</strong></p>
-					";
-                    $mailer     = Swift_Mailer::newInstance($trnsport);
-                    $message    = Swift_Message::newInstance('Rental Listing Rejected');
-                    $message ->setFrom(array('indiaestatehomes@gmail.com' => 'Greetings From Homes247.in'));
-                    // $message ->setTo(array('abijith@homes247.in'));
-                    $message ->setTo(array($data['Rejectedsuccess'][1]->user_email));
-                    // $message ->setCc(array('enquiry@homes247.in'));
-                    $message ->setBcc(array('priyatham@homes247.in' , 'abijith@homes247.in' ));
-					// $message ->setBcc(array('abijith@homes247.in'));
-                    $message ->setSubject("Rental Listing Rejected");
-                    $message ->setBody($body, 'text/html');
-					$result = $mailer->send($message);
-					}else{
+		// 			if($data['Rejectedsuccess'][1]->user_email != ''){
+		// 				// Mail Sending Body for Customers
+		// 			$body="<p style='font-size:18px; margin-bottom:0px;'>Hi ". $customername .",</p>"."<br />
+		// 			<p style='font-size:18px; margin-bottom:0px;'>Greetings from Homes247.in</p>"."<br />
+        //             "."<p style='margin-bottom:0px; margin-top:0px;'>We are sorry to say that your property verification has failed due to ". $reason ." Please do cross-check the details and our guidelines before resubmission.</p><br />
+		// 			"."<p style='margin:0px;'>Basic Details you given.</p><br />
+		// 			"."<strong>Property Details</strong> : ". $bhk ."". ' ' ."". $Proptype ." in ". $propname ." , ". $locality ." , ". $city ." <br />
+		// 			"."<strong>Price</strong> : ". $price ."<br />
+		// 			"."<p style='margin-bottom:15px;margin-top: 10px;'>Thanks and Regards,</p>
+		// 			"."<p style='margin-bottom:0px;margin-top: 0px;'><strong>Admin</strong></p>
+		// 			";
+        //             $mailer     = Swift_Mailer::newInstance($trnsport);
+        //             $message    = Swift_Message::newInstance('Rental Listing Rejected');
+        //             $message ->setFrom(array('indiaestatehomes@gmail.com' => 'Greetings From Homes247.in'));
+        //             // $message ->setTo(array('abijith@homes247.in'));
+        //             $message ->setTo(array($data['Rejectedsuccess'][1]->user_email));
+        //             // $message ->setCc(array('enquiry@homes247.in'));
+        //             $message ->setBcc(array('priyatham@homes247.in' , 'abijith@homes247.in' ));
+		// 			// $message ->setBcc(array('abijith@homes247.in'));
+        //             $message ->setSubject("Rental Listing Rejected");
+        //             $message ->setBody($body, 'text/html');
+		// 			$result = $mailer->send($message);
+		// 			}else{
 
-					}
+		// 			}
 		return true;
 	}
 
