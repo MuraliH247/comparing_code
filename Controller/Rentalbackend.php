@@ -137,6 +137,7 @@ class rentalbackend extends CI_Controller
     function get_propertyById()
 	{
 		$id=$_POST['propId'];
+		// print_r($id);exit();
 		$data['propertydetails']=$this->rentalbackendmodule->get_propertyById($id);
 		$i = 0;
 			foreach($data['propertydetails'] as $val){
@@ -599,7 +600,7 @@ class rentalbackend extends CI_Controller
 	function postproperty()
 	{
 		$userid = $_GET['Userid'];
-		// $username = $_GET['Username'];
+		$username = $_GET['Username'];
 		/*Propertyname checker*/
 		if(isset($_GET['Propertyname']) && !empty($_GET['Propertyname']) && $_GET['Propertyname']!="null" )
 		{
@@ -962,12 +963,13 @@ class rentalbackend extends CI_Controller
 		$ret_arr=$this->rentalbackendmodule->addlisting($userid,$propname,$proprent,$maintanence,$totalfloor,$propfloor,$doorface,$city,$locality,$proptype,$buildtype,$propfurnish,$propownership,$propageyear,$propagemonth,$brokerage,$Propaddress,$zipcode,$descrip,$bhk,$bathroom,$balcony,$area,$areatype,$openparking,$coveredparking,$watersupply,$amenity,$facility,$nearby,$nearbydetails,$plottype,$plotsize,$plotage,$parking,$deposit,$availabledate,$tenant,$builderid);
 	   
 		$userdetails = $this->rentalbackendmodule->getuserdetails($userid);
-
+		date_default_timezone_set('Asia/Kolkata');
+		$date = date("Y-M-d");
 		if($ret_arr){
 			require_once 'Swift-5.0.1/lib/swift_required.php';
 			$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 			->setUsername('indiaestatehomes@gmail.com')
-			->setPassword('homesindiaestate');
+			->setPassword('ffpc xuul oyxb nint');
 	
 				// Mail Sending Body for Admin
 				$body="<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
@@ -1323,7 +1325,7 @@ class rentalbackend extends CI_Controller
 				require_once 'Swift-5.0.1/lib/swift_required.php';
 					$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 					->setUsername('indiaestatehomes@gmail.com')
-					->setPassword('homesindiaestate');
+					->setPassword('ffpc xuul oyxb nint');
 					$body="<p style='font-size:18px; margin-bottom:0px;'>Hello ". $usermailexist[0]->name .",</p>"."<br />
 					<p style='font-size:18px; margin-bottom:0px;'>Greetings from Homes247.in</p>"."<br />
 					"."<p style='margin-bottom:0px; margin-top:0px;'>Congratulations!!!  You Got a Rentals callback request from ". $name ."</p><br />"."
@@ -1347,7 +1349,7 @@ class rentalbackend extends CI_Controller
 					require_once 'Swift-5.0.1/lib/swift_required.php';
 					$trnsport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465,'ssl')
 					->setUsername('indiaestatehomes@gmail.com')
-					->setPassword('homesindiaestate');
+					->setPassword('ffpc xuul oyxb nint');
 					$body="<img src='https://duzxxeqden9a0.cloudfront.net/images/Logo.png' width='50%' style='margin-bottom:20px'>
 					"."<br />"."<p style='font-size:18px; margin-bottom:0px;'>Dear Admin,</p>"."<br />
 					"."<p style='margin-top:0px;'>We have received a call back request for Rentals from ". $name ."</p><br />
