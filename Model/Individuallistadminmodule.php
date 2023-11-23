@@ -1,11 +1,11 @@
 <?php
 
-class defaultdb3 {
+class individualdb {
     public function connect(){
-        //   $conn = mysqli_connect('localhost', 'homes247user', '7Ekv!(]~V1Uz', 'homes247_individuals');
-          $conn = mysqli_connect('localhost', '', '', 'homes247_individuals');
+        // $conn = mysqli_connect('localhost', 'root', 'hOMES_247', 'homes247_individuals');
+        $conn = mysqli_connect('localhost', 'root', '', 'homes247_individuals');
         if (!$conn) {
-            die("Připojení se nezdařilo: " . mysqli_error($conn));
+            die("P?ipojení se nezda?ilo: " . mysqli_error($conn));
         } else {
             return $conn;
         }
@@ -18,6 +18,7 @@ class individuallistadminmodule extends CI_Model {
 	{
 		$this->load->database();
 		$this->load->library('session');
+        $this->db_individuals = $this->load->database('individualdb', TRUE);
 	}
 
     public function getnewrequests()
@@ -743,7 +744,7 @@ public function updatelistingdetails($data = array())
 			FROM  locality
 			where 
 			locality_IDPK=$localityid";
-			$query_select4 = $this->maindb->query($sql_select4);
+			$query_select4 = $this->dbindividual->query($sql_select4);
 			$result4 = $query_select4->result();
 
 			$merged_results = array_merge($result, $result2, $result3, $result4);
@@ -753,39 +754,46 @@ public function updatelistingdetails($data = array())
 
     public function rejectionreason($id,$reason)
 	{
-		$this->dbindividual = $this->load->database('individualdb', TRUE);
-        $conn = mysqli_connect("localhost", "root", "", "homes247_individuals");
-		$result = mysqli_query($conn, "SELECT * FROM `rejection_details` where property_IDFK = '$id'");
-		$num_rows = mysqli_num_rows($result);
+		// $this->dbindividual = $this->load->database('individualdb', TRUE);
+        // $conn = mysqli_connect("localhost", "root", "", "homes247_individuals");
+		// $result = mysqli_query($conn, "SELECT * FROM `rejection_details` where property_IDFK = '$id'");
+		// $num_rows = mysqli_num_rows($result);
+        $sql_select = "SELECT * FROM `rejection_details` where property_IDFK = '$id'";
+		$query_select = $this->db_individuals->query($sql_select);
+		$result=$query_select->result();
+		$num_rows=$query_select->num_rows();
+
+        // print_r($num_rows);exit();
+
 		$date= date('Y-m-d H:i:s');
 		if ($num_rows >= 1){
 			$data = array(
 				'rejection_reason'=>$reason,
 				'created_date'=>$date
 				);
-				$this->dbindividual->where('property_IDFK',$id);
-				$this->dbindividual->update('rejection_details', $data);
+				$this->db_individuals->where('property_IDFK',$id);
+				$this->db_individuals->update('rejection_details', $data);
 		}else{
 			$data = array(
 				'rejection_reason' =>$reason,
 				'property_IDFK' =>$id,
 				'created_date'=>$date
 		);
-		$this->dbindividual->insert('rejection_details',$data);
+		$this->db_individuals->insert('rejection_details',$data);
 		}
 		return true;
 	}
 
     public function rejection($id)
 	{
-		$this->dbindividual = $this->load->database('individualdb', TRUE);
+		// $this->dbindividual = $this->load->database('individualdb', TRUE);
 		$date= date('Y-m-d H:i:s');
 		$data = array(
 			'property_verify'=>'2',
 			'property_updated'=>$date
 			);
-			$this->dbindividual->where('property_IDPK',$id);
-			$this->dbindividual->update('property_details', $data);
+			$this->db_individuals->where('property_IDPK',$id);
+			$this->db_individuals->update('property_details', $data);
 			$sql_select = "SELECT 
 			property_details.property_IDPK as ID,
 			property_details.userIDFK as Userid,
@@ -802,7 +810,7 @@ public function updatelistingdetails($data = array())
 			property_type ON property_type.property_typeIDPK = property_details.property_typeIDFK
 			where 
 			property_IDPK=$id";
-			$query_select = $this->dbindividual->query($sql_select);
+			$query_select = $this->db_individuals->query($sql_select);
 			$result = $query_select->result();
 			$userid = $result[0]->Userid;
 			$localityid = $result[0]->localityid;
