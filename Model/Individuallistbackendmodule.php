@@ -3,7 +3,7 @@
 class defaultdb6 {
     public function connect(){
         //   $conn = mysqli_connect('localhost', 'root', 'hOMES_247', 'homes247_individuals');
-          $conn = mysqli_connect('localhost', '', '', 'homes247_individuals');
+          $conn = mysqli_connect('localhost', 'root', '', 'homes247_individuals');
         if (!$conn) {
             die("Připojení se nezdařilo: " . mysqli_error($conn));
         } else {
@@ -1918,12 +1918,6 @@ class individuallistbackendmodule extends CI_Model {
 		'customer_time'=>$time
 		);
 		$this->db_forum->insert('enquiry',$data);
-		$this->db_forum->insert('freshleads',$data);
-		// $lastinsertid = $this->db->insert_id();
-		// $this->db_forum->where('customer_IDPK', $lastinsertid);
-		// $query = $this->db_forum->get('enquiry');
-		// $row = $query->row();
-		// $this->db_forum->insert('freshleads',$row);
 		return 1;
 	}
 
