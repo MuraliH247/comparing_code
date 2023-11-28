@@ -1,10 +1,25 @@
 <?php
+
+class rentaldb {
+    public function connect(){
+        // $conn = mysqli_connect('localhost', 'root', 'hOMES_247', 'homes247_rentals');
+        $conn = mysqli_connect('localhost', 'root', '', 'homes247_rentals');
+        if (!$conn) {
+            die("P?ipojení se nezda?ilo: " . mysqli_error($conn));
+        } else {
+            return $conn;
+        }
+    }
+}
+
 class rentaladminmodule extends CI_Model {
 
 	public function __construct()
 	{
 		$this->load->database();
 		$this->load->library('session');
+		$this->db_rental = $this->load->database('rentaldb', TRUE);
+
 	}
 
 
@@ -369,7 +384,7 @@ class rentaladminmodule extends CI_Model {
                     'images_name' =>$filenameval,
                     'added_date'=>$date
                     );	
-                    //print_r($data);exit;
+                    // print_r($data);exit;
             $this->dbrental->insert('property_images',$data);
             return true;
     }
@@ -504,6 +519,12 @@ class rentaladminmodule extends CI_Model {
 		}else{
 			$buildtypedb = NULL;
 		}
+		if(isset($data['parking']) && !empty($data['parking']) && $data['parking'] != "NULL" && $data['parking'] != "null" )
+		{
+			$parkingtypedb = $data['parking'];	
+		}else{
+			$parkingtypedb = NULL;
+		}
 
 		$data = array(
 			'property_name' =>$data['property_name'],
@@ -525,7 +546,7 @@ class rentaladminmodule extends CI_Model {
 			'property_bathroom' =>$bathroomdb,
 			'property_balcony' =>$balconydb,
 			'property_area' =>$data['area'],
-			'parking' =>$data['parking'],
+			'parking' =>$parkingtypedb,
 			// 'property_watersupply' =>$data['wsupply'],
 			'property_availablefrom' =>$data['date'],
 			'property_tenantIDFK' =>$data['tenants1'],
@@ -858,19 +879,24 @@ class rentaladminmodule extends CI_Model {
 
 	public function rejectionreason($id,$reason)
 	{
-		$conn = mysqli_connect("localhost", "root", "", "homes247_rentals");
-		$this->dbrental = $this->load->database('rentaldb', TRUE);
-		$sql_query1 = mysqli_query($conn,"SELECT * FROM `rejection_details` WHERE `property_IDFK` = '$id'");
-		// print_r($sql_query1);exit();
-		$num_rows = mysqli_num_rows($sql_query1);
+		// $conn = mysqli_connect("localhost", "root", "", "homes247_rentals");
+		// $this->dbrental = $this->load->database('rentaldb', TRUE);
+		// $sql_query1 = mysqli_query($conn,"SELECT * FROM `rejection_details` WHERE `property_IDFK` = '$id'");
+		// $num_rows = mysqli_num_rows($sql_query1);
+
+		$sql_select = "SELECT * FROM `rejection_details` WHERE `property_IDFK` = '$id'";
+		$query_select = $this->db_rental->query($sql_select);
+		$result=$query_select->result();
+		$num_rows=$query_select->num_rows();
+		// print_r($num_rows);exit();
 		$date= date('Y-m-d H:i:s');
 		if($num_rows >= 1){
 			$data = array(
 				'rejection_reason' =>$reason,
 				'created_date' =>$date
 			);
-				$this->dbrental->where('property_IDFK', $id);
-				$this->dbrental->update('rejection_details',$data);
+				$this->db_rental->where('property_IDFK', $id);
+				$this->db_rental->update('rejection_details',$data);
 			
 		}else{
 			$data =array(
@@ -878,7 +904,7 @@ class rentaladminmodule extends CI_Model {
 				'property_IDFK' =>$id,
 				'created_date' =>$date
 			);
-				$this->dbrental->insert('rejection_details',$data);
+				$this->db_rental->insert('rejection_details',$data);
 		}
 		// print_r($sql_query1);exit();
 		return true;
@@ -888,14 +914,14 @@ class rentaladminmodule extends CI_Model {
 	public function rejection($id)
 	{ 
 		// print_r($id);exit();
-		$this->dbrental = $this->load->database('rentaldb', TRUE);
+		// $this->dbrental = $this->load->database('rentaldb', TRUE);
 		$date= date('Y-m-d H:i:s');
 		$data = array(
 			'property_verify'=>'2',
 			'property_updated'=>$date
 			);
-			$this->dbrental->where('property_IDPK',$id);
-			$this->dbrental->update('property_details', $data);
+			$this->db_rental->where('property_IDPK',$id);
+			$this->db_rental->update('property_details', $data);
 	    	$sql_select = "
 			SELECT 
 			property_details.property_IDPK as ID,
@@ -912,7 +938,7 @@ class rentaladminmodule extends CI_Model {
 			LEFT JOIN
 			property_type ON property_type.property_typeIDPK = property_details.property_typeIDFK
 			where property_IDPK=$id";
-			$query_select = $this->dbrental->query($sql_select);
+			$query_select = $this->db_rental->query($sql_select);
 			$result = $query_select->result();
 			$userid = $result[0]->Userid;
 			$localityid = $result[0]->localityid;
