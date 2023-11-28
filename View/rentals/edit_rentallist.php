@@ -301,44 +301,6 @@
 			<hr />
 <!-- ================================ Cover Image ends here ======================================== -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="col-md-12">
               <div class="property_img_add">
 				<label>Gallery Images</label>
@@ -349,7 +311,7 @@
 				<?php echo count($locations[0]->images)?>
 				</p>
 				<form id="updatealt" name="updatealt"  onsubmit="return validation()" enctype="multipart/form-data" method="post" 
-				action="<?php echo base_url()?>individuallistadmin/updatealt" >			  
+				action="<?php echo base_url()?>rentaladmin/updatealt" >			  
 				<input type="hidden" name="rentalId" value="<?=$rentalID?>">
 				<input type="hidden" name="rentalId" value="<?=$i?>">
 				<?php
@@ -907,7 +869,7 @@ function myFunction(input,propId)
 function approval(id)
 {
 	// alert(id);
-	// $('#loadermain').show();
+	$('#loadermain').show();
 	var username = document.getElementById("username").value;
 	var price = document.getElementById("price").value;
 	if (price >= 10000000) {
@@ -922,7 +884,7 @@ function approval(id)
         success: function(data)
 		{
 			// alert(data);
-			// $('#loadermain').hide();
+			$('#loadermain').hide();
 			alert("Successfully Approved");
 			console.log(data);
 			 window.location.href = baseurl + 'rentaladmin/rentallistapproved';
@@ -932,7 +894,7 @@ function approval(id)
 
 function reject(id)
 {
-	// $('#loadermain').show();
+	$('#loadermain').show();
 	var reason = document.getElementById("rejectionreason").value;
 	
 	var price = document.getElementById("price").value;
@@ -955,7 +917,7 @@ function reject(id)
 		    url:baseurl+'rentaladmin/getrejected',
 		    success: function(data){
 				// alert(data);	
-				// $('#loadermain').hide();
+				$('#loadermain').hide();
 				$("#rejctmodalclose").trigger('click');
 				alert("Successfully Rejected");
 					 window.location.href = baseurl + 'rentaladmin/rentallistrejected' ;
